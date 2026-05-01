@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects — Aykhan Nuri</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('portfolio-theme');
+        if (saved !== 'light' && saved !== 'dark') {
+          saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', saved);
+      } catch(e) {}
+    })();
+  </script>
+  <style>
+    .pp-hero {
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+    .pp-hero h1 {
+      font-family: var(--mono);
+      font-weight: 300;
+      font-size: clamp(48px, 10vw, 160px);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+    .pp-hero h1 .dim { color: var(--fg-30); }
+    .pp-hero p {
+      font-size: 18px;
+      color: var(--fg-70);
+      max-width: 60ch;
+      line-height: 1.55;
+    }
+    .pp-detail {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .pp-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 64px;
+    }
+    .pp-side {
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--fg-50);
+      position: sticky;
+      top: 96px;
+      align-self: start;
+    }
+    .pp-side .pnum {
+      font-weight: 300;
+      font-size: 56px;
+      line-height: 1;
+      letter-spacing: -0.03em;
+      color: var(--fg);
+      margin-bottom: 16px;
+      text-transform: none;
+    }
+    .pp-body h2 {
+      font-family: var(--mono);
+      font-weight: 300;
+      font-size: clamp(32px, 5vw, 64px);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+    .pp-body .lead {
+      font-size: 18px;
+      color: var(--fg-70);
+      line-height: 1.6;
+      max-width: 64ch;
+      margin-bottom: 32px;
+    }
+    .pp-meta {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+    .pp-meta > div {
+      background: var(--bg);
+      padding: 18px 20px;
+    }
+    .pp-meta .k {
+      font-family: var(--mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--fg-50);
+      margin-bottom: 8px;
+    }
+    .pp-meta .v {
+      font-family: var(--mono);
+      font-size: 14px;
+    }
+    .pp-list {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 32px;
+      border-top: 1px solid var(--border);
+    }
+    .pp-list li {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      color: var(--fg-70);
+      font-size: 15px;
+      line-height: 1.55;
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      gap: 12px;
+      align-items: baseline;
+    }
+    .pp-list li::before {
+      content: '◆';
+      font-family: var(--mono);
+      color: var(--fg-30);
+      font-size: 10px;
+    }
+    .pp-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .pp-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 32px; }
+    @media (max-width: 768px) {
+      .pp-grid { grid-template-columns: 1fr; gap: 24px; }
+      .pp-side { position: static; }
+      .pp-meta { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <script type="text/babel" src="demos.jsx"></script>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    function getInitialTheme() {
+      const saved = localStorage.getItem('portfolio-theme');
+      if (saved === 'light' || saved === 'dark') return saved;
+      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) return 'light';
+      return 'dark';
+    }
+
+    const PROJECTS_FULL = [
+      {
+        num: '01',
+        title: 'RAG System',
+        kicker: 'Retrieval-Augmented Generation',
+        lead: 'Document-grounded chatbot for arbitrary corpora — drop in PDFs, markdown, or text and get cited answers from a vector-indexed knowledge base.',
+        meta: [
+          { k: 'Status', v: 'Live · v0.4' },
+          { k: 'Stack', v: 'Python · FastAPI' },
+          { k: 'Domain', v: 'LLM / Retrieval' },
+        ],
+        problem: 'LLMs hallucinate when asked about private or recent information. Most RAG implementations bolt retrieval on as an afterthought, which leaves accuracy and latency on the table.',
+        approach: [
+          'Chunking strategy tuned per document type — semantic splits for prose, structural splits for code & tables.',
+          'Embedding pipeline with batched async calls; PostgreSQL + pgvector for similarity search.',
+          'Re-ranking layer that scores retrieved chunks against the query before context assembly.',
+          'Citation tracking carried through the pipeline so the UI can surface source passages, not just the answer.',
+          'Async ingest worker for incremental indexing — uploads do not block the chat.',
+        ],
+        tags: ['Python', 'FastAPI', 'OpenAI', 'pgvector', 'Embeddings', 'Async'],
+        demo: 'rag',
+      },
+      {
+        num: '02',
+        title: 'Resume Parser & Ranker',
+        kicker: 'LLM-powered candidate scoring',
+        lead: 'Paste a job description and a stack of resumes — the system parses, embeds, scores each candidate against the JD, and returns ranked matches with one-line reasoning.',
+        meta: [
+          { k: 'Status', v: 'Live · v0.2' },
+          { k: 'Stack', v: 'Python · LLM' },
+          { k: 'Domain', v: 'HR Tech' },
+        ],
+        problem: 'Recruiters spend hours triaging resumes against a JD. Keyword matching misses qualified candidates with non-standard phrasing; pure LLM scoring is expensive at scale.',
+        approach: [
+          'Parsing layer extracts structured fields from PDF / DOCX / pasted text — skills, roles, durations, education.',
+          'Hybrid scoring: embedding similarity for first-pass shortlist, LLM reasoning for final ranking with explanations.',
+          'Structured-output prompting forces the model to return valid JSON for downstream consumption.',
+          'Per-candidate one-line rationale — a recruiter can scan a ranked list and trust the order.',
+        ],
+        tags: ['Python', 'LLM Reasoning', 'Embeddings', 'Structured Output', 'PDF Parsing'],
+        demo: 'ranker',
+      },
+      {
+        num: '03',
+        title: 'Multi-Agent Automation',
+        kicker: 'Production work at Veyseloglu LLC',
+        lead: 'Production system orchestrating specialized agents for task automation and information retrieval across enterprise data sources.',
+        meta: [
+          { k: 'Status', v: 'In production' },
+          { k: 'Stack', v: 'OpenAI Agents · FastAPI' },
+          { k: 'Domain', v: 'Enterprise' },
+        ],
+        problem: 'Single-agent LLM systems struggle with long, multi-step enterprise workflows that span multiple data sources and require domain-specific tools.',
+        approach: [
+          'Specialist agents for distinct domains — each owns a set of tools and a focused system prompt.',
+          'Coordinator agent decomposes user requests, delegates, and synthesizes responses.',
+          'Tool layer exposes internal APIs and data sources via a typed contract.',
+          'Observability built in from day one: per-step traces, token accounting, error budgets.',
+        ],
+        tags: ['Response API', 'Agents SDK', 'FastAPI', 'Production', 'Observability'],
+        demo: null,
+      },
+      {
+        num: '04',
+        title: 'Customer Service Chatbot',
+        kicker: 'Araz Supermarkets · Internship project',
+        lead: 'Retail-chain support bot blending dataset Q&A with GPT fallback. Vector embeddings improve match accuracy; automated pipelines refresh the knowledge base on a schedule.',
+        meta: [
+          { k: 'Status', v: 'Shipped · 2024' },
+          { k: 'Stack', v: 'Python · GPT' },
+          { k: 'Domain', v: 'Retail' },
+        ],
+        problem: 'Retail support handles thousands of repeat questions about stock, pricing, and policies. A pure-LLM solution is expensive and unpredictable; a pure-FAQ solution misses paraphrasing.',
+        approach: [
+          'Curated dataset of FAQ pairs as the first-pass retrieval target.',
+          'Vector embeddings on questions for semantic match across phrasings.',
+          'GPT fallback for queries that miss the dataset confidence threshold.',
+          'Scheduled pipeline that ingests new tickets and proposes dataset additions for human review.',
+        ],
+        tags: ['NLP', 'GPT', 'Vector Search', 'Automation', 'Retail'],
+        demo: null,
+      },
+    ];
+
+    function Theme({ children }) {
+      const [theme, setTheme] = useState(getInitialTheme);
+      useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('portfolio-theme', theme);
+      }, [theme]);
+      return children({ theme, setTheme });
+    }
+
+    function Nav({ theme, setTheme }) {
+      return (
+        <nav className="nav">
+          <div className="nav-inner">
+            <a href="index.html" className="brand">
+              <span className="dot"></span>
+              AYKHAN NURI / AI ENG
+            </a>
+            <div className="nav-links">
+              <a href="index.html#about">About</a>
+              <a href="index.html#work">Work</a>
+              <a href="projects.html">Projects</a>
+              <a href="index.html#experience">Experience</a>
+              <a href="index.html#contact">Contact</a>
+              <button
+                className="theme-toggle"
+                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              >
+                <span>{theme === 'dark' ? '◐' : '◑'}</span>
+                <span>{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
+              </button>
+            </div>
+          </div>
+        </nav>
+      );
+    }
+
+    function ProjectsPage() {
+      const [demo, setDemo] = useState(null);
+
+      useEffect(() => {
+        if (!demo) return;
+        const onKey = (e) => { if (e.key === 'Escape') setDemo(null); };
+        document.addEventListener('keydown', onKey);
+        document.body.style.overflow = 'hidden';
+        return () => {
+          document.removeEventListener('keydown', onKey);
+          document.body.style.overflow = '';
+        };
+      }, [demo]);
+
+      const titleMap = { rag: 'RAG SYSTEM · LIVE DEMO', ranker: 'RESUME RANKER · LIVE DEMO' };
+
+      return (
+        <Theme>
+          {({ theme, setTheme }) => (
+            <>
+              <Nav theme={theme} setTheme={setTheme} />
+
+              <section className="pp-hero">
+                <div className="container">
+                  <div style={{ fontFamily: 'var(--mono)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--fg-50)', marginBottom: 24 }}>
+                    /PROJECTS · {String(PROJECTS_FULL.length).padStart(2, '0')} ENTRIES
+                  </div>
+                  <h1>
+                    Projects<span className="dim">/</span>
+                  </h1>
+                  <p>
+                    Systems I've shipped — internships, research, production work, and side experiments. Each project page documents the problem, the approach, and (where applicable) lets you try it live.
+                  </p>
+                </div>
+              </section>
+
+              {PROJECTS_FULL.map((p) => (
+                <section className="pp-detail" id={p.num} key={p.num}>
+                  <div className="container">
+                    <div className="pp-grid">
+                      <div className="pp-side">
+                        <div className="pnum">{p.num}</div>
+                        {p.kicker}
+                      </div>
+                      <div className="pp-body">
+                        <h2>{p.title}</h2>
+                        <p className="lead">{p.lead}</p>
+
+                        <div className="pp-meta">
+                          {p.meta.map((m) => (
+                            <div key={m.k}>
+                              <div className="k">{m.k}</div>
+                              <div className="v">{m.v}</div>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div style={{ fontFamily: 'var(--mono)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--fg-50)', marginBottom: 12 }}>
+                          // Problem
+                        </div>
+                        <p style={{ color: 'var(--fg-70)', fontSize: 16, lineHeight: 1.6, marginBottom: 32, maxWidth: '64ch' }}>
+                          {p.problem}
+                        </p>
+
+                        <div style={{ fontFamily: 'var(--mono)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--fg-50)', marginBottom: 12 }}>
+                          // Approach
+                        </div>
+                        <ul className="pp-list">
+                          {p.approach.map((step, i) => <li key={i}>{step}</li>)}
+                        </ul>
+
+                        <div className="pp-tags">
+                          {p.tags.map((t) => <span key={t} className="tag">{t}</span>)}
+                        </div>
+
+                        <div className="pp-actions">
+                          {p.demo ? (
+                            <button className="btn btn-primary" onClick={() => setDemo(p.demo)}>
+                              ◉ TRY LIVE DEMO <span className="arrow">→</span>
+                            </button>
+                          ) : (
+                            <span className="btn btn-ghost" style={{ opacity: 0.5, cursor: 'default' }}>
+                              DEMO · UNAVAILABLE
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              ))}
+
+              <section className="pp-detail" style={{ borderTop: '1px solid var(--border)' }}>
+                <div className="container" style={{ textAlign: 'left' }}>
+                  <div className="section-head" style={{ marginBottom: 32 }}>
+                    <span className="num">→</span>
+                    <h2>More coming</h2>
+                  </div>
+                  <p style={{ color: 'var(--fg-70)', fontSize: 17, lineHeight: 1.6, maxWidth: '60ch', marginBottom: 32 }}>
+                    New projects ship regularly. The list above will grow with experiments in agentic workflows, structured generation, and evaluation tooling.
+                  </p>
+                  <a href="index.html#contact" className="btn btn-primary">
+                    GET IN TOUCH <span className="arrow">→</span>
+                  </a>
+                </div>
+              </section>
+
+              <footer className="footer">
+                <span>© 2026 AYKHAN NURI · ALL SYSTEMS NOMINAL</span>
+                <span className="ascii">{'{ built with care · ☕ }'}</span>
+              </footer>
+
+              {demo && (
+                <div className="modal-overlay" onClick={() => setDemo(null)}>
+                  <div className="modal" onClick={(e) => e.stopPropagation()}>
+                    <div className="modal-head">
+                      <span className="title">{titleMap[demo]}</span>
+                      <button className="close" onClick={() => setDemo(null)}>ESC · CLOSE</button>
+                    </div>
+                    <div className="modal-body">
+                      {demo === 'rag' && <RagDemo />}
+                      {demo === 'ranker' && <RankerDemo />}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+        </Theme>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<ProjectsPage />);
+  </script>
+</body>
+</html>
