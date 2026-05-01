@@ -38,10 +38,11 @@ const PROJECTS = [
 {
   id: 'rag',
   num: '01',
-  title: 'RAG System',
-  desc: 'Document-grounded chatbot. Upload PDFs, markdown, or text — vector embeddings index the corpus, then an LLM answers questions with citations back to source passages.',
-  tags: ['Python', 'FastAPI', 'OpenAI', 'pgvector', 'Embeddings'],
-  demo: 'rag'
+  title: 'Agentic RAG System',
+  desc: 'Production-grade Agentic RAG backend: input guard → query rewrite → hybrid retrieval → LLM reranking → CRAG-style grading with decomposition retry, returning grounded answers with inline citations.',
+  tags: ['FastAPI', 'OpenAI', 'Qdrant', 'CRAG', 'Agentic'],
+  repo: 'https://github.com/aykhnnri/production-rag-system',
+  demo: null
 },
 {
   id: 'ranker',
@@ -49,7 +50,8 @@ const PROJECTS = [
   title: 'Resume Parser & Ranker',
   desc: 'Paste a job description and a stack of resumes — the system parses, embeds, scores each candidate against the JD, and returns ranked matches with one-line reasoning.',
   tags: ['Python', 'LLM Reasoning', 'Embeddings', 'Structured Output'],
-  demo: 'ranker'
+  repo: null,
+  demo: null
 },
 {
   id: 'multiagent',
@@ -293,7 +295,7 @@ function Skills() {
 /* ============================================================
    PROJECTS PREVIEW
    ============================================================ */
-function ProjectsPreview({ openDemo }) {
+function ProjectsPreview() {
   return (
     <section id="work">
       <div className="container">
@@ -305,28 +307,33 @@ function ProjectsPreview({ openDemo }) {
           </a>
         </div>
         <div className="projects-list">
-          {PROJECTS.map((p) =>
-          <div
-            key={p.id}
-            className="proj-row"
-            style={{ cursor: p.demo ? 'pointer' : 'default' }}
-            onClick={() => p.demo && openDemo(p.demo)}>
-            
-              <span className="pnum">{p.num}</span>
-              <div>
-                <div className="ptitle">{p.title}</div>
-                {p.demo &&
-              <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--fg-50)', letterSpacing: '0.14em', marginTop: 6, display: 'inline-block' }}>
-                    ◉ LIVE DEMO
-                  </span>
-              }
-              </div>
-              <div className="pdesc">{p.desc}</div>
-              <div className="ptags">
-                {p.tags.slice(0, 3).map((t) => <span key={t} className="tag">{t}</span>)}
-              </div>
-            </div>
-          )}
+          {PROJECTS.map((p) => {
+            const RowTag = p.repo ? 'a' : 'div';
+            const rowProps = p.repo
+              ? { href: p.repo, target: '_blank', rel: 'noopener', style: { textDecoration: 'none', color: 'inherit' } }
+              : {};
+            return (
+              <RowTag
+                key={p.id}
+                className="proj-row"
+                style={{ cursor: p.repo ? 'pointer' : 'default', ...(rowProps.style || {}) }}
+                {...rowProps}>
+                <span className="pnum">{p.num}</span>
+                <div>
+                  <div className="ptitle">{p.title}</div>
+                  {p.repo &&
+                    <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--fg-50)', letterSpacing: '0.14em', marginTop: 6, display: 'inline-block' }}>
+                      ◦ VIEW ON GITHUB ↗
+                    </span>
+                  }
+                </div>
+                <div className="pdesc">{p.desc}</div>
+                <div className="ptags">
+                  {p.tags.slice(0, 3).map((t) => <span key={t} className="tag">{t}</span>)}
+                </div>
+              </RowTag>
+            );
+          })}
         </div>
       </div>
     </section>);
@@ -498,7 +505,6 @@ function DemoModal({ which, onClose }) {
    ============================================================ */
 function App() {
   const [theme, setTheme] = useTheme();
-  const [demo, setDemo] = useState(null);
 
   return (
     <>
@@ -506,12 +512,11 @@ function App() {
       <Hero />
       <About />
       <Skills />
-      <ProjectsPreview openDemo={setDemo} />
+      <ProjectsPreview />
       <Experience />
       <EduLang />
       <Contact />
       <Footer />
-      {demo && <DemoModal which={demo} onClose={() => setDemo(null)} />}
     </>);
 
 }

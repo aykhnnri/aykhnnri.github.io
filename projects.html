@@ -147,111 +147,115 @@
 
   <script type="text/babel" src="demos.jsx"></script>
   <script type="text/babel">
-    const { useState, useEffect } = React;
 
-    function getInitialTheme() {
-      const saved = localStorage.getItem('portfolio-theme');
-      if (saved === 'light' || saved === 'dark') return saved;
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) return 'light';
-      return 'dark';
-    }
+const { useState, useEffect } = React;
 
-    const PROJECTS_FULL = [
-      {
-        num: '01',
-        title: 'RAG System',
-        kicker: 'Retrieval-Augmented Generation',
-        lead: 'Document-grounded chatbot for arbitrary corpora — drop in PDFs, markdown, or text and get cited answers from a vector-indexed knowledge base.',
-        meta: [
-          { k: 'Status', v: 'Live · v0.4' },
-          { k: 'Stack', v: 'Python · FastAPI' },
-          { k: 'Domain', v: 'LLM / Retrieval' },
-        ],
-        problem: 'LLMs hallucinate when asked about private or recent information. Most RAG implementations bolt retrieval on as an afterthought, which leaves accuracy and latency on the table.',
-        approach: [
-          'Chunking strategy tuned per document type — semantic splits for prose, structural splits for code & tables.',
-          'Embedding pipeline with batched async calls; PostgreSQL + pgvector for similarity search.',
-          'Re-ranking layer that scores retrieved chunks against the query before context assembly.',
-          'Citation tracking carried through the pipeline so the UI can surface source passages, not just the answer.',
-          'Async ingest worker for incremental indexing — uploads do not block the chat.',
-        ],
-        tags: ['Python', 'FastAPI', 'OpenAI', 'pgvector', 'Embeddings', 'Async'],
-        demo: 'rag',
-      },
-      {
-        num: '02',
-        title: 'Resume Parser & Ranker',
-        kicker: 'LLM-powered candidate scoring',
-        lead: 'Paste a job description and a stack of resumes — the system parses, embeds, scores each candidate against the JD, and returns ranked matches with one-line reasoning.',
-        meta: [
-          { k: 'Status', v: 'Live · v0.2' },
-          { k: 'Stack', v: 'Python · LLM' },
-          { k: 'Domain', v: 'HR Tech' },
-        ],
-        problem: 'Recruiters spend hours triaging resumes against a JD. Keyword matching misses qualified candidates with non-standard phrasing; pure LLM scoring is expensive at scale.',
-        approach: [
-          'Parsing layer extracts structured fields from PDF / DOCX / pasted text — skills, roles, durations, education.',
-          'Hybrid scoring: embedding similarity for first-pass shortlist, LLM reasoning for final ranking with explanations.',
-          'Structured-output prompting forces the model to return valid JSON for downstream consumption.',
-          'Per-candidate one-line rationale — a recruiter can scan a ranked list and trust the order.',
-        ],
-        tags: ['Python', 'LLM Reasoning', 'Embeddings', 'Structured Output', 'PDF Parsing'],
-        demo: 'ranker',
-      },
-      {
-        num: '03',
-        title: 'Multi-Agent Automation',
-        kicker: 'Production work at Veyseloglu LLC',
-        lead: 'Production system orchestrating specialized agents for task automation and information retrieval across enterprise data sources.',
-        meta: [
-          { k: 'Status', v: 'In production' },
-          { k: 'Stack', v: 'OpenAI Agents · FastAPI' },
-          { k: 'Domain', v: 'Enterprise' },
-        ],
-        problem: 'Single-agent LLM systems struggle with long, multi-step enterprise workflows that span multiple data sources and require domain-specific tools.',
-        approach: [
-          'Specialist agents for distinct domains — each owns a set of tools and a focused system prompt.',
-          'Coordinator agent decomposes user requests, delegates, and synthesizes responses.',
-          'Tool layer exposes internal APIs and data sources via a typed contract.',
-          'Observability built in from day one: per-step traces, token accounting, error budgets.',
-        ],
-        tags: ['Response API', 'Agents SDK', 'FastAPI', 'Production', 'Observability'],
-        demo: null,
-      },
-      {
-        num: '04',
-        title: 'Customer Service Chatbot',
-        kicker: 'Araz Supermarkets · Internship project',
-        lead: 'Retail-chain support bot blending dataset Q&A with GPT fallback. Vector embeddings improve match accuracy; automated pipelines refresh the knowledge base on a schedule.',
-        meta: [
-          { k: 'Status', v: 'Shipped · 2024' },
-          { k: 'Stack', v: 'Python · GPT' },
-          { k: 'Domain', v: 'Retail' },
-        ],
-        problem: 'Retail support handles thousands of repeat questions about stock, pricing, and policies. A pure-LLM solution is expensive and unpredictable; a pure-FAQ solution misses paraphrasing.',
-        approach: [
-          'Curated dataset of FAQ pairs as the first-pass retrieval target.',
-          'Vector embeddings on questions for semantic match across phrasings.',
-          'GPT fallback for queries that miss the dataset confidence threshold.',
-          'Scheduled pipeline that ingests new tickets and proposes dataset additions for human review.',
-        ],
-        tags: ['NLP', 'GPT', 'Vector Search', 'Automation', 'Retail'],
-        demo: null,
-      },
-    ];
+function getInitialTheme() {
+  const saved = localStorage.getItem('portfolio-theme');
+  if (saved === 'light' || saved === 'dark') return saved;
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) return 'light';
+  return 'dark';
+}
 
-    function Theme({ children }) {
-      const [theme, setTheme] = useState(getInitialTheme);
-      useEffect(() => {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem('portfolio-theme', theme);
-      }, [theme]);
-      return children({ theme, setTheme });
-    }
+const PROJECTS_FULL = [
+{
+  num: '01',
+  title: 'Agentic RAG System',
+  kicker: 'Retrieval-Augmented Generation · Agentic',
+  lead: 'Production-grade Agentic RAG backend built with FastAPI, OpenAI, and Qdrant. Designed to be portfolio-friendly: one command to boot, no external infrastructure required.',
+  meta: [
+  { k: 'Status', v: 'Open source' },
+  { k: 'Stack', v: 'FastAPI · Qdrant' },
+  { k: 'Domain', v: 'LLM / Retrieval' }],
 
-    function Nav({ theme, setTheme }) {
-      return (
-        <nav className="nav">
+  problem: 'Most RAG implementations bolt retrieval on as an afterthought — no guardrails, no grading, and silent failure when the corpus cannot ground an answer. The result is a system that hallucinates confidently or breaks under adversarial input.',
+  approach: [
+  'InputGuard blocks obvious prompt-injection patterns before they hit the model.',
+  'LLM-powered query rewriting cleans up retrieval inputs for better recall.',
+  'Hybrid retrieval over a Qdrant vector store, then LLM relevance reranking with safe parsing and clamping.',
+  'CRAG-style GradingAgent classifies retrieved context as sufficient / partial / insufficient — partial triggers query decomposition and a second pass.',
+  'ResponseGenerator returns grounded answers with inline source citations; honest refusal when the corpus cannot support an answer.',
+  'CORS-enabled HTTP API; tests stub OpenAI and Qdrant so the suite runs without API keys or running services.'],
+
+  tags: ['FastAPI', 'OpenAI', 'Qdrant', 'CRAG', 'Agentic', 'Pytest'],
+  repo: 'https://github.com/aykhnnri/production-rag-system',
+  demo: null
+},
+{
+  num: '02',
+  title: 'Resume Parser & Ranker',
+  kicker: 'LLM-powered candidate scoring',
+  lead: 'Paste a job description and a stack of resumes — the system parses, embeds, scores each candidate against the JD, and returns ranked matches with one-line reasoning.',
+  meta: [
+  { k: 'Status', v: 'In progress' },
+  { k: 'Stack', v: 'Python · LLM' },
+  { k: 'Domain', v: 'HR Tech' }],
+
+  problem: 'Recruiters spend hours triaging resumes against a JD. Keyword matching misses qualified candidates with non-standard phrasing; pure LLM scoring is expensive at scale.',
+  approach: [
+  'Parsing layer extracts structured fields from PDF / DOCX / pasted text — skills, roles, durations, education.',
+  'Hybrid scoring: embedding similarity for first-pass shortlist, LLM reasoning for final ranking with explanations.',
+  'Structured-output prompting forces the model to return valid JSON for downstream consumption.',
+  'Per-candidate one-line rationale — a recruiter can scan a ranked list and trust the order.'],
+
+  tags: ['Python', 'LLM Reasoning', 'Embeddings', 'Structured Output', 'PDF Parsing'],
+  repo: null,
+  demo: null
+},
+{
+  num: '03',
+  title: 'Multi-Agent Automation',
+  kicker: 'Production work at Veyseloglu LLC',
+  lead: 'Production system orchestrating specialized agents for task automation and information retrieval across enterprise data sources.',
+  meta: [
+  { k: 'Status', v: 'In production' },
+  { k: 'Stack', v: 'OpenAI Agents · FastAPI' },
+  { k: 'Domain', v: 'Enterprise' }],
+
+  problem: 'Single-agent LLM systems struggle with long, multi-step enterprise workflows that span multiple data sources and require domain-specific tools.',
+  approach: [
+  'Specialist agents for distinct domains — each owns a set of tools and a focused system prompt.',
+  'Coordinator agent decomposes user requests, delegates, and synthesizes responses.',
+  'Tool layer exposes internal APIs and data sources via a typed contract.',
+  'Observability built in from day one: per-step traces, token accounting, error budgets.'],
+
+  tags: ['Response API', 'Agents SDK', 'FastAPI', 'Production', 'Observability'],
+  demo: null
+},
+{
+  num: '04',
+  title: 'Customer Service Chatbot',
+  kicker: 'Araz Supermarkets · Internship project',
+  lead: 'Retail-chain support bot blending dataset Q&A with GPT fallback. Vector embeddings improve match accuracy; automated pipelines refresh the knowledge base on a schedule.',
+  meta: [
+  { k: 'Status', v: 'Shipped · 2024' },
+  { k: 'Stack', v: 'Python · GPT' },
+  { k: 'Domain', v: 'Retail' }],
+
+  problem: 'Retail support handles thousands of repeat questions about stock, pricing, and policies. A pure-LLM solution is expensive and unpredictable; a pure-FAQ solution misses paraphrasing.',
+  approach: [
+  'Curated dataset of FAQ pairs as the first-pass retrieval target.',
+  'Vector embeddings on questions for semantic match across phrasings.',
+  'GPT fallback for queries that miss the dataset confidence threshold.',
+  'Scheduled pipeline that ingests new tickets and proposes dataset additions for human review.'],
+
+  tags: ['NLP', 'GPT', 'Vector Search', 'Automation', 'Retail'],
+  demo: null
+}];
+
+
+function Theme({ children }) {
+  const [theme, setTheme] = useState(getInitialTheme);
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
+  return children({ theme, setTheme });
+}
+
+function Nav({ theme, setTheme }) {
+  return (
+    <nav className="nav">
           <div className="nav-inner">
             <a href="index.html" className="brand">
               <span className="dot"></span>
@@ -264,38 +268,23 @@
               <a href="index.html#experience">Experience</a>
               <a href="index.html#contact">Contact</a>
               <button
-                className="theme-toggle"
-                onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              >
+            className="theme-toggle"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+            
                 <span>{theme === 'dark' ? '◐' : '◑'}</span>
                 <span>{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
               </button>
             </div>
           </div>
-        </nav>
-      );
-    }
+        </nav>);
 
-    function ProjectsPage() {
-      const [demo, setDemo] = useState(null);
+}
 
-      useEffect(() => {
-        if (!demo) return;
-        const onKey = (e) => { if (e.key === 'Escape') setDemo(null); };
-        document.addEventListener('keydown', onKey);
-        document.body.style.overflow = 'hidden';
-        return () => {
-          document.removeEventListener('keydown', onKey);
-          document.body.style.overflow = '';
-        };
-      }, [demo]);
-
-      const titleMap = { rag: 'RAG SYSTEM · LIVE DEMO', ranker: 'RESUME RANKER · LIVE DEMO' };
-
-      return (
-        <Theme>
-          {({ theme, setTheme }) => (
-            <>
+function ProjectsPage() {
+  return (
+    <Theme>
+          {({ theme, setTheme }) =>
+      <>
               <Nav theme={theme} setTheme={setTheme} />
 
               <section className="pp-hero">
@@ -306,14 +295,14 @@
                   <h1>
                     Projects<span className="dim">/</span>
                   </h1>
-                  <p>
-                    Systems I've shipped — internships, research, production work, and side experiments. Each project page documents the problem, the approach, and (where applicable) lets you try it live.
-                  </p>
+                  <p>Systems I've shipped - internships, research, production work, and side experiments. Each project page documents the problem, the approach, and (where applicable) lets you try it live.
+
+            </p>
                 </div>
               </section>
 
-              {PROJECTS_FULL.map((p) => (
-                <section className="pp-detail" id={p.num} key={p.num}>
+              {PROJECTS_FULL.map((p) =>
+        <section className="pp-detail" id={p.num} key={p.num}>
                   <div className="container">
                     <div className="pp-grid">
                       <div className="pp-side">
@@ -325,12 +314,12 @@
                         <p className="lead">{p.lead}</p>
 
                         <div className="pp-meta">
-                          {p.meta.map((m) => (
-                            <div key={m.k}>
+                          {p.meta.map((m) =>
+                  <div key={m.k}>
                               <div className="k">{m.k}</div>
                               <div className="v">{m.v}</div>
                             </div>
-                          ))}
+                  )}
                         </div>
 
                         <div style={{ fontFamily: 'var(--mono)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--fg-50)', marginBottom: 12 }}>
@@ -352,21 +341,21 @@
                         </div>
 
                         <div className="pp-actions">
-                          {p.demo ? (
-                            <button className="btn btn-primary" onClick={() => setDemo(p.demo)}>
-                              ◉ TRY LIVE DEMO <span className="arrow">→</span>
-                            </button>
-                          ) : (
-                            <span className="btn btn-ghost" style={{ opacity: 0.5, cursor: 'default' }}>
-                              DEMO · UNAVAILABLE
+                          {p.repo ?
+                  <a className="btn btn-primary" href={p.repo} target="_blank" rel="noopener">
+                              ◦ VIEW ON GITHUB <span className="arrow">↗</span>
+                            </a> :
+
+                  <span className="btn btn-ghost" style={{ opacity: 0.5, cursor: 'default' }}>
+                              REPO · COMING SOON
                             </span>
-                          )}
+                  }
                         </div>
                       </div>
                     </div>
                   </div>
                 </section>
-              ))}
+        )}
 
               <section className="pp-detail" style={{ borderTop: '1px solid var(--border)' }}>
                 <div className="container" style={{ textAlign: 'left' }}>
@@ -387,28 +376,13 @@
                 <span>© 2026 AYKHAN NURI · ALL SYSTEMS NOMINAL</span>
                 <span className="ascii">{'{ built with care · ☕ }'}</span>
               </footer>
-
-              {demo && (
-                <div className="modal-overlay" onClick={() => setDemo(null)}>
-                  <div className="modal" onClick={(e) => e.stopPropagation()}>
-                    <div className="modal-head">
-                      <span className="title">{titleMap[demo]}</span>
-                      <button className="close" onClick={() => setDemo(null)}>ESC · CLOSE</button>
-                    </div>
-                    <div className="modal-body">
-                      {demo === 'rag' && <RagDemo />}
-                      {demo === 'ranker' && <RankerDemo />}
-                    </div>
-                  </div>
-                </div>
-              )}
             </>
-          )}
-        </Theme>
-      );
-    }
+      }
+        </Theme>);
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<ProjectsPage />);
-  </script>
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<ProjectsPage />);
+</script>
 </body>
 </html>
