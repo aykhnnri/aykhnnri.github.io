@@ -1002,3 +1002,142 @@ section {
 .flex { display: flex; }
 .gap-12 { gap: 12px; }
 .mt-32 { margin-top: 32px; }
+
+/* ============================================================
+   RESPONSIVE — Tablet & Mobile
+   ============================================================ */
+
+/* Tablet (≤900px) */
+@media (max-width: 900px) {
+  :root { --pad-x: 32px; }
+  section { padding-top: 72px; padding-bottom: 72px; }
+  .section-head { margin-bottom: 48px; gap: 16px; }
+  .hero { padding-top: 40px; padding-bottom: 72px; }
+  .hero-sub { margin-top: 48px; gap: 32px; }
+}
+
+/* Mobile (≤768px) */
+@media (max-width: 768px) {
+  :root { --pad-x: 20px; }
+
+  html, body { font-size: 15px; }
+
+  section { padding-top: 56px; padding-bottom: 56px; }
+  .section-head {
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+    gap: 12px;
+    padding-bottom: 18px;
+  }
+
+  /* Nav: show links on mobile, wrap if needed */
+  .nav-inner {
+    padding: 14px var(--pad-x);
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .brand { font-size: 11px; letter-spacing: 0.1em; }
+  .nav-links { gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+  .nav-links a:not(.cta) { display: inline; font-size: 11px; letter-spacing: 0.1em; }
+  .theme-toggle { padding: 6px 10px; font-size: 10px; }
+
+  /* Hero */
+  .hero { padding-top: 32px; padding-bottom: 56px; }
+  .hero-meta {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+    font-size: 11px;
+  }
+  .hero-title { margin-bottom: 24px; }
+  .hero-sub { margin-top: 32px; padding-top: 24px; gap: 24px; }
+  .hero-sub p { font-size: 16px; }
+  .hero-sub .actions { width: 100%; }
+  .hero-sub .actions .btn { flex: 1; justify-content: center; }
+
+  /* Buttons */
+  .btn { padding: 12px 18px; font-size: 12px; }
+
+  /* About */
+  .about-grid p { font-size: 16px; }
+  .stat-grid { grid-template-columns: 1fr; }
+  .stat { padding: 22px; }
+  .stat .v { font-size: 32px; }
+  .stat .vsm { font-size: 16px; }
+
+  /* Skills */
+  .skill-cat { padding: 24px; gap: 14px; }
+  .skill-cat .head h3 { font-size: 13px; }
+
+  /* Projects rows */
+  .proj-row { padding: 24px 0; }
+  .proj-row:hover { padding-left: 0; padding-right: 0; }
+  .proj-row .ptitle { font-size: 22px; }
+  .proj-row .pdesc { font-size: 14px; }
+
+  /* Experience */
+  .tl-item { padding: 28px 0; }
+  .tl-body h3 { font-size: 18px; }
+  .tl-body p { font-size: 15px; }
+
+  /* Education / Languages */
+  .edu-lang > div { padding: 26px; }
+  .edu .degree { font-size: 22px; }
+  .lang-row .lng { font-size: 16px; }
+
+  /* Contact */
+  .contact-cta {
+    font-size: clamp(36px, 11vw, 64px);
+    margin-bottom: 32px;
+  }
+  .contact-row { padding: 18px 0; }
+  .contact-row:hover { padding-left: 0; }
+  .contact-row .val { word-break: break-all; }
+
+  /* Footer */
+  .footer { padding: 24px var(--pad-x); font-size: 10px; }
+
+  /* Modal — use full screen on mobile */
+  .modal-overlay { padding: 0; }
+  .modal { max-height: 100vh; height: 100vh; max-width: 100%; border: none; }
+  .modal-head { padding: 14px 18px; }
+  .modal-head .title { font-size: 11px; }
+
+  /* Demos: stack & fit viewport */
+  .demo { max-height: none; height: calc(100vh - 56px); }
+  .demo-sidebar { padding: 18px; max-height: 35vh; }
+  .chat-log { padding: 18px; }
+  .chat-input { padding: 12px 18px; gap: 8px; }
+  .chat-input input { padding: 10px 12px; font-size: 14px; }
+  .chat-input .send { padding: 10px 14px; font-size: 11px; }
+
+  .ranker { max-height: none; height: auto; }
+  .ranker-left, .ranker-right { padding: 18px; }
+  .rank-item {
+    grid-template-columns: 40px 1fr;
+    gap: 12px;
+    padding: 14px;
+  }
+  .rank-item .pos { font-size: 24px; }
+  .rank-item .score { grid-column: 2; text-align: left; font-size: 22px; }
+  .rank-item .score-suffix { text-align: left; }
+
+  /* Projects page detail */
+  .pp-hero { padding-top: 48px; padding-bottom: 48px; }
+  .pp-detail { padding: 48px 0; }
+  .pp-side .pnum { font-size: 40px; margin-bottom: 8px; }
+  .pp-body .lead { font-size: 16px; margin-bottom: 24px; }
+  .pp-meta > div { padding: 14px 16px; }
+  .pp-list li { font-size: 14px; grid-template-columns: 22px 1fr; gap: 8px; padding: 12px 0; }
+  .pp-actions .btn { flex: 1; justify-content: center; }
+}
+
+/* Small mobile (≤420px) */
+@media (max-width: 420px) {
+  :root { --pad-x: 16px; }
+  .nav-links { gap: 10px; }
+  .nav-links a:not(.cta) { font-size: 10px; }
+  .brand { font-size: 10px; }
+  .hero-title { letter-spacing: -0.03em; }
+  .section-head .num { font-size: 11px; }
+}

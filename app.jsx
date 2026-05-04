@@ -417,7 +417,7 @@ function Contact() {
           <span className="num">06</span>
           <h2>Contact</h2>
         </div>
-        <h3 className="contact-cta" style={{ fontSize: "90px", fontWeight: "300" }}>
+        <h3 className="contact-cta">
           Let's build<br />
           something <span className="dim">/*</span>useful<span className="dim">*/</span>.
         </h3>
