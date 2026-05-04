@@ -5,7 +5,7 @@
 
 :root {
   /* Dark theme (default) */
-  --bg: #1f2228;
+  --bg: #101010;
   --fg: #ffffff;
   --fg-70: rgba(255, 255, 255, 0.7);
   --fg-50: rgba(255, 255, 255, 0.5);
@@ -17,7 +17,7 @@
   --border-strong: rgba(255, 255, 255, 0.2);
   --surface: rgba(255, 255, 255, 0.03);
   --surface-hover: rgba(255, 255, 255, 0.08);
-  --ring: rgba(59, 130, 246, 0.5);
+  --ring: rgba(246, 59, 59, 0.5);
   --btn-primary-bg: #ffffff;
   --btn-primary-fg: #1f2228;
 
@@ -64,6 +64,12 @@ body {
 }
 
 ::selection { background: var(--fg); color: var(--bg); }
+
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
 
 a {
   color: var(--fg);
