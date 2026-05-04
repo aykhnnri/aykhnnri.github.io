@@ -434,7 +434,7 @@ function Contact() {
           </a>
           <a href={CONTACT.linkedin} target="_blank" rel="noopener" className="contact-row">
             <span className="label">LinkedIn</span>
-            <span className="val">/in/aykhan-nuri-a087981a8</span>
+            <span className="val">Aykhan Nuri</span>
             <span className="arr">↗</span>
           </a>
           <a href={CONTACT.github} target="_blank" rel="noopener" className="contact-row">
