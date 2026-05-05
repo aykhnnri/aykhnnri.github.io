@@ -9,29 +9,38 @@ const TAGLINE = 'AI Engineer building backend systems for LLMs, RAG, and agentic
 
 const SKILLS = [
 {
-  title: 'AI / ML',
-  items: ['OpenAI', 'Agents SDK', 'Embeddings', 'Gemini', 'Grok', 'RAG', 'Vector Search', 'LLM Fine-Tuning', 'NLP']
+  title: 'Languages',
+  items: ['Python', 'TypeScript', 'JavaScript', 'SQL', 'C++']
 },
 {
   title: 'Backend & API',
-  items: ['Python', 'FastAPI', 'REST API design', 'Microservices', 'Microsoft Graph API', 'Async workflows']
+  items: ['FastAPI', 'REST APIs', 'Async Python', 'Background jobs', 'Microservices', 'API integrations', 'Webhooks', 'Authentication', 'Streaming responses']
 },
 {
   title: 'Databases & Caching',
-  items: ['PostgreSQL', 'SQL Server', 'Redis', 'Performance optimization']
+  items: ['PostgreSQL', 'SQL Server', 'Redis', 'Qdrant', 'Vector databases', 'Semantic search']
 },
 {
-  title: 'Languages',
-  items: ['Python', 'TypeScript', 'JavaScript', 'C++', 'HTML/CSS']
+  title: 'AI & Machine Learning',
+  items: ['Prompt engineering', 'Tool/function calling', 'Agent orchestration', 'RAG pipelines', 'Query rewriting', 'Reranking', 'LLM evaluation']
 },
 {
-  title: 'Frameworks',
-  items: ['FastAPI', 'Node.js', 'React', 'React Native', '.NET', 'Pandas', 'NumPy']
+  title: 'Frameworks & Libraries',
+  items: ['LangChain', 'LangGraph', 'Pandas', 'NumPy', 'Node.js', 'React', 'React Native', '.NET']
 },
 {
-  title: 'DevOps & Tools',
-  items: ['Docker', 'Docker Compose', 'CI/CD', 'Linux', 'Git', 'Firebase', 'n8n']
-}];
+  title: 'DevOps & Infrastructure',
+  items: ['Docker', 'Docker Compose', 'Linux', 'GitHub Actions', 'CI/CD', 'Deployment configuration', 'Logging & monitoring']
+},
+{
+  title: 'Tools & Platforms',
+  items: ['Git', 'GitHub', 'OpenAI Platform', 'Firebase', 'n8n', 'Postman', 'Cursor/Codex']
+},
+{
+  title: 'System Design & Engineering',
+  items: ['Scalable backend design', 'Async workflows', 'Caching', 'Error handling', 'Fallback logic', 'Retry/rate-limit handling', 'Automation workflows']
+},
+];
 
 
 const PROJECTS = [
