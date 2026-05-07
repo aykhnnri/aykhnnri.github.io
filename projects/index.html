@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@200;300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="../styles.css" />
   <script>
     (function() {
       try {
@@ -146,7 +146,7 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
-  <script type="text/babel" src="demos.jsx"></script>
+  <script type="text/babel" src="../demos.jsx"></script>
   <script type="text/babel">
 
 const { useState, useEffect } = React;
@@ -258,20 +258,20 @@ function Nav({ theme, setTheme }) {
   return (
     <nav className="nav">
           <div className="nav-inner">
-            <a href="index.html" className="brand">
+            <a href="/" className="brand">
               <span className="dot"></span>
               AYKHAN NURI / AI ENG
             </a>
             <div className="nav-links">
-              <a href="index.html#about">About</a>
-              <a href="index.html#work">Work</a>
-              <a href="projects.html">Projects</a>
-              <a href="index.html#experience">Experience</a>
-              <a href="index.html#contact">Contact</a>
+              <a href="/#about">About</a>
+              <a href="/#work">Work</a>
+              <a href="/projects/">Projects</a>
+              <a href="/#experience">Experience</a>
+              <a href="/#contact">Contact</a>
               <button
             className="theme-toggle"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-            
+
                 <span>{theme === 'dark' ? '◐' : '◑'}</span>
                 <span>{theme === 'dark' ? 'LIGHT' : 'DARK'}</span>
               </button>
@@ -367,7 +367,7 @@ function ProjectsPage() {
                   <p style={{ color: 'var(--fg-70)', fontSize: 17, lineHeight: 1.6, maxWidth: '60ch', marginBottom: 32 }}>
                     New projects ship regularly. The list above will grow with experiments in agentic workflows, structured generation, and evaluation tooling.
                   </p>
-                  <a href="index.html#contact" className="btn btn-primary">
+                  <a href="/#contact" className="btn btn-primary">
                     GET IN TOUCH <span className="arrow">→</span>
                   </a>
                 </div>

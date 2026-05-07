@@ -157,7 +157,7 @@ function Nav({ theme, setTheme }) {
         <div className="nav-links">
           <a href="#about">About</a>
           <a href="#work">Work</a>
-          <a href="projects.html">Projects</a>
+          <a href="/projects/">Projects</a>
           <a href="#experience">Experience</a>
           <a href="#contact">Contact</a>
           <button
@@ -311,7 +311,7 @@ function ProjectsPreview() {
         <div className="section-head">
           <span className="num">03</span>
           <h2>Selected Work</h2>
-          <a href="projects.html" style={{ marginLeft: 'auto', fontFamily: 'var(--mono)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--fg-70)' }}>
+          <a href="/projects/" style={{ marginLeft: 'auto', fontFamily: 'var(--mono)', fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.14em', color: 'var(--fg-70)' }}>
             ALL PROJECTS →
           </a>
         </div>
