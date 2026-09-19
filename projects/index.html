@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Projects — Aykhan Nuri</title>
+  <title>Projects · Aykhan Nuri</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E☕%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@200;300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css" />
   <script>
     (function() {
@@ -146,7 +146,6 @@
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
 
-  <script type="text/babel" src="../demos.jsx"></script>
   <script type="text/babel">
 
 const { useState, useEffect } = React;
@@ -169,12 +168,12 @@ const PROJECTS_FULL = [
   { k: 'Stack', v: 'FastAPI · Qdrant' },
   { k: 'Domain', v: 'LLM / Retrieval' }],
 
-  problem: 'Most RAG implementations bolt retrieval on as an afterthought — no guardrails, no grading, and silent failure when the corpus cannot ground an answer. The result is a system that hallucinates confidently or breaks under adversarial input.',
+  problem: 'Most RAG implementations bolt retrieval on as an afterthought, with no guardrails, no grading, and silent failure when the corpus cannot ground an answer. The result is a system that hallucinates confidently or breaks under adversarial input.',
   approach: [
   'InputGuard blocks obvious prompt-injection patterns before they hit the model.',
   'LLM-powered query rewriting cleans up retrieval inputs for better recall.',
   'Hybrid retrieval over a Qdrant vector store, then LLM relevance reranking with safe parsing and clamping.',
-  'CRAG-style GradingAgent classifies retrieved context as sufficient / partial / insufficient — partial triggers query decomposition and a second pass.',
+  'CRAG-style GradingAgent classifies retrieved context as sufficient, partial, or insufficient; partial triggers query decomposition and a second pass.',
   'ResponseGenerator returns grounded answers with inline source citations; honest refusal when the corpus cannot support an answer.',
   'CORS-enabled HTTP API; tests stub OpenAI and Qdrant so the suite runs without API keys or running services.'],
 
@@ -186,7 +185,7 @@ const PROJECTS_FULL = [
   num: '02',
   title: 'Resume Parser & Ranker',
   kicker: 'LLM-powered candidate scoring',
-  lead: 'Paste a job description and a stack of resumes — the system parses, embeds, scores each candidate against the JD, and returns ranked matches with one-line reasoning.',
+  lead: 'Paste a job description and a stack of resumes. The system parses, embeds, and scores each candidate against the JD, then returns ranked matches with one-line reasoning.',
   meta: [
   { k: 'Status', v: 'In progress' },
   { k: 'Stack', v: 'Python · LLM' },
@@ -194,10 +193,10 @@ const PROJECTS_FULL = [
 
   problem: 'Recruiters spend hours triaging resumes against a JD. Keyword matching misses qualified candidates with non-standard phrasing; pure LLM scoring is expensive at scale.',
   approach: [
-  'Parsing layer extracts structured fields from PDF / DOCX / pasted text — skills, roles, durations, education.',
+  'Parsing layer extracts structured fields from PDF, DOCX, or pasted text: skills, roles, durations, education.',
   'Hybrid scoring: embedding similarity for first-pass shortlist, LLM reasoning for final ranking with explanations.',
   'Structured-output prompting forces the model to return valid JSON for downstream consumption.',
-  'Per-candidate one-line rationale — a recruiter can scan a ranked list and trust the order.'],
+  'Per-candidate one-line rationale, so a recruiter can scan a ranked list and trust the order.'],
 
   tags: ['Python', 'LLM Reasoning', 'Embeddings', 'Structured Output', 'PDF Parsing'],
   repo: null,
@@ -207,27 +206,28 @@ const PROJECTS_FULL = [
   num: '03',
   title: 'Multi-Agent Automation',
   kicker: 'Production work at Veyseloglu LLC',
-  lead: 'Production system orchestrating specialized agents for task automation and information retrieval across enterprise data sources.',
+  lead: 'Production system orchestrating specialized agents for business-process automation, information retrieval, and decision support across enterprise data sources.',
   meta: [
   { k: 'Status', v: 'In production' },
-  { k: 'Stack', v: 'OpenAI Agents · FastAPI' },
+  { k: 'Stack', v: 'FastAPI · Qdrant' },
   { k: 'Domain', v: 'Enterprise' }],
 
   problem: 'Single-agent LLM systems struggle with long, multi-step enterprise workflows that span multiple data sources and require domain-specific tools.',
   approach: [
-  'Specialist agents for distinct domains — each owns a set of tools and a focused system prompt.',
-  'Coordinator agent decomposes user requests, delegates, and synthesizes responses.',
-  'Tool layer exposes internal APIs and data sources via a typed contract.',
-  'Observability built in from day one: per-step traces, token accounting, error budgets.'],
+  'Specialist agents for distinct domains, each owning a focused system prompt and its own set of tools.',
+  'Coordinator agent decomposes user requests, delegates via tool calling, and synthesizes structured responses.',
+  'Retrieval layer over Qdrant with embeddings, semantic search, query rewriting, and reranking, plus fallback logic when a source comes up empty.',
+  'Python pipelines and FastAPI services connect the agents to enterprise APIs and databases.',
+  'Reliability built in from day one: caching, retries, rate-limit handling, logging, monitoring, and Docker-based deployment.'],
 
-  tags: ['Response API', 'Agents SDK', 'FastAPI', 'Production', 'Observability'],
+  tags: ['FastAPI', 'Qdrant', 'Tool Calling', 'Structured Outputs', 'Docker', 'Production'],
   demo: null
 },
 {
   num: '04',
   title: 'Customer Service Chatbot',
   kicker: 'Araz Supermarkets · Internship project',
-  lead: 'Retail-chain support bot blending dataset Q&A with GPT fallback. Vector embeddings improve match accuracy; automated pipelines refresh the knowledge base on a schedule.',
+  lead: 'Retail support bot that answers from a curated dataset and falls back to GPT for uncovered queries. Vector embeddings and semantic search improve retrieval quality; automated pipelines keep the knowledge base current.',
   meta: [
   { k: 'Status', v: 'Shipped · 2024' },
   { k: 'Stack', v: 'Python · GPT' },
@@ -236,9 +236,9 @@ const PROJECTS_FULL = [
   problem: 'Retail support handles thousands of repeat questions about stock, pricing, and policies. A pure-LLM solution is expensive and unpredictable; a pure-FAQ solution misses paraphrasing.',
   approach: [
   'Curated dataset of FAQ pairs as the first-pass retrieval target.',
-  'Vector embeddings on questions for semantic match across phrasings.',
+  'Vector embeddings and semantic search over questions to match across phrasings.',
   'GPT fallback for queries that miss the dataset confidence threshold.',
-  'Scheduled pipeline that ingests new tickets and proposes dataset additions for human review.'],
+  'Automated knowledge-base updates that ingest new tickets and propose dataset additions for human review.'],
 
   tags: ['NLP', 'GPT', 'Vector Search', 'Automation', 'Retail'],
   demo: null
@@ -260,7 +260,7 @@ function Nav({ theme, setTheme }) {
           <div className="nav-inner">
             <a href="/" className="brand">
               <span className="dot"></span>
-              AYKHAN NURI / AI ENG
+              AYKHAN NURI / AI·ML ENG
             </a>
             <div className="nav-links">
               <a href="/#about">About</a>
@@ -296,9 +296,11 @@ function ProjectsPage() {
                   <h1>
                     Projects<span className="dim">/</span>
                   </h1>
-                  <p>Systems I've shipped - internships, research, production work, and side experiments. Each project page documents the problem, the approach, and (where applicable) lets you try it live.
-
-            </p>
+                  <p>
+                    Systems I've shipped across internships, research, production work, and
+                    side experiments. Each entry documents the problem it solves and the
+                    approach behind it.
+                  </p>
                 </div>
               </section>
 
@@ -365,7 +367,8 @@ function ProjectsPage() {
                     <h2>More coming</h2>
                   </div>
                   <p style={{ color: 'var(--fg-70)', fontSize: 17, lineHeight: 1.6, maxWidth: '60ch', marginBottom: 32 }}>
-                    New projects ship regularly. The list above will grow with experiments in agentic workflows, structured generation, and evaluation tooling.
+                    The list above grows with new work in machine learning, agentic workflows,
+                    structured generation, and evaluation tooling.
                   </p>
                   <a href="/#contact" className="btn btn-primary">
                     GET IN TOUCH <span className="arrow">→</span>

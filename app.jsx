@@ -1,44 +1,33 @@
-/* global React, ReactDOM, RagDemo, RankerDemo */
-const { useState, useEffect, useRef } = React;
+/* global React, ReactDOM */
+const { useState, useEffect } = React;
 
 /* ============================================================
    DATA — pulled from resume
    ============================================================ */
 const NAME = 'AYKHAN NURI';
-const TAGLINE = 'AI Engineer building backend systems for LLMs, RAG, and agentic workflows.';
+const TAGLINE = 'AI/ML engineer working across the machine-learning lifecycle, from data preparation to deployed Python services.';
+const RESUME = 'assets/Aykhan_Nuri_Resume.pdf';
 
 const SKILLS = [
 {
-  title: 'Languages',
-  items: ['Python', 'TypeScript', 'JavaScript', 'SQL', 'C++']
+  title: 'Programming',
+  items: ['Python', 'SQL', 'TypeScript', 'JavaScript']
 },
 {
-  title: 'Backend & API',
-  items: ['FastAPI', 'REST APIs', 'Async Python', 'Background jobs', 'Microservices', 'API integrations', 'Webhooks', 'Authentication', 'Streaming responses']
+  title: 'Machine Learning',
+  items: ['Supervised learning', 'Unsupervised learning', 'Classification', 'Regression', 'Clustering', 'Data preprocessing', 'Feature engineering', 'Model training', 'Cross-validation', 'Hyperparameter tuning', 'Model evaluation']
 },
 {
-  title: 'Databases & Caching',
-  items: ['PostgreSQL', 'SQL Server', 'Redis', 'Qdrant', 'Vector databases', 'Semantic search']
+  title: 'Applied AI',
+  items: ['RAG', 'Agentic systems', 'Function / tool calling', 'Embeddings', 'Semantic search', 'Prompt engineering', 'Query rewriting', 'Reranking', 'LLM evaluation']
 },
 {
-  title: 'AI & Machine Learning',
-  items: ['Prompt engineering', 'Tool/function calling', 'Agent orchestration', 'RAG pipelines', 'Query rewriting', 'Reranking', 'LLM evaluation']
+  title: 'Frameworks & Data',
+  items: ['scikit-learn', 'FastAPI', 'LangGraph', 'LangChain', 'OpenAI API', 'Pandas', 'NumPy', 'PostgreSQL', 'SQL Server', 'Redis', 'Qdrant']
 },
 {
-  title: 'Frameworks & Libraries',
-  items: ['LangChain', 'LangGraph', 'Pandas', 'NumPy', 'Node.js', 'React', 'React Native', '.NET']
-},
-{
-  title: 'DevOps & Infrastructure',
-  items: ['Docker', 'Docker Compose', 'Linux', 'GitHub Actions', 'CI/CD', 'Deployment configuration', 'Logging & monitoring']
-},
-{
-  title: 'Tools & Platforms',
-  items: ['Git', 'GitHub', 'OpenAI Platform', 'Firebase', 'n8n', 'Postman', 'Cursor/Codex']
-},
-{
-  title: 'System Design & Engineering',
-  items: ['Scalable backend design', 'Async workflows', 'Caching', 'Error handling', 'Fallback logic', 'Retry/rate-limit handling', 'Automation workflows']
+  title: 'MLOps & Engineering',
+  items: ['Model serving', 'REST APIs', 'Asynchronous Python', 'Docker', 'Linux', 'GitHub Actions', 'CI/CD', 'Caching', 'Logging', 'Monitoring']
 },
 ];
 
@@ -48,7 +37,7 @@ const PROJECTS = [
   id: 'rag',
   num: '01',
   title: 'Agentic RAG System',
-  desc: 'Production-grade Agentic RAG backend: input guard → query rewrite → hybrid retrieval → LLM reranking → CRAG-style grading with decomposition retry, returning grounded answers with inline citations.',
+  desc: 'Agentic RAG backend that chains an input guard, query rewriting, hybrid retrieval, LLM reranking, and CRAG-style grading with a decomposition retry, returning grounded answers with inline citations.',
   tags: ['FastAPI', 'OpenAI', 'Qdrant', 'CRAG', 'Agentic'],
   repo: 'https://github.com/aykhnnri/production-rag-system',
   demo: null
@@ -57,7 +46,7 @@ const PROJECTS = [
   id: 'ranker',
   num: '02',
   title: 'Resume Parser & Ranker',
-  desc: 'Paste a job description and a stack of resumes — the system parses, embeds, scores each candidate against the JD, and returns ranked matches with one-line reasoning.',
+  desc: 'Paste a job description and a stack of resumes. The system parses, embeds, and scores each candidate against the JD, then returns ranked matches with one-line reasoning.',
   tags: ['Python', 'LLM Reasoning', 'Embeddings', 'Structured Output'],
   repo: null,
   demo: null
@@ -66,15 +55,15 @@ const PROJECTS = [
   id: 'multiagent',
   num: '03',
   title: 'Multi-Agent Automation',
-  desc: 'Production system at Veyseloglu LLC orchestrating specialized agents for task automation and information retrieval across enterprise data sources.',
-  tags: ['Response API', 'Agents SDK', 'FastAPI', 'Production'],
+  desc: 'Production system at Veyseloglu LLC orchestrating specialized agents for business-process automation, information retrieval, and decision support across enterprise data sources.',
+  tags: ['FastAPI', 'Qdrant', 'Tool Calling', 'Structured Outputs', 'Production'],
   demo: null
 },
 {
   id: 'chatbot',
   num: '04',
   title: 'Customer Service Chatbot',
-  desc: 'Retail-chain support bot blending dataset Q&A with GPT fallback. Vector embeddings improve match accuracy; automated pipelines refresh the knowledge base on a schedule.',
+  desc: 'Retail support bot that answers from a curated dataset and falls back to GPT for uncovered queries. Vector embeddings and semantic search improve retrieval quality; automated pipelines keep the knowledge base current.',
   tags: ['NLP', 'GPT', 'Vector Search', 'Automation'],
   demo: null
 }];
@@ -82,32 +71,47 @@ const PROJECTS = [
 
 const EXPERIENCE = [
 {
-  period: 'Sep 2025 — Present',
+  period: 'Sep 2025 – Present',
   current: true,
   role: 'AI Engineer',
   org: 'Veyseloglu LLC · Baku, Azerbaijan',
-  body: 'Designing and developing AI-powered multi-agent systems that handle task automation and information retrieval across enterprise workflows.'
+  points: [
+  'Design and develop AI/ML systems for business-process automation, information retrieval, and decision support across internal workflows.',
+  'Build Python data pipelines and FastAPI services for model integration, inference, evaluation, and connectivity with enterprise APIs and databases.',
+  'Develop RAG and multi-agent workflows using embeddings, Qdrant, semantic search, query rewriting, reranking, tool calling, structured outputs, and fallback logic.',
+  'Strengthen reliability with caching, logging, monitoring, retries, rate-limit handling, error management, and Docker-based deployment.']
+
 },
 {
-  period: 'Jun 2024 — Jul 2024',
+  period: 'Jun 2024 – Jul 2024',
   current: false,
   role: 'AI Developer Intern',
   org: '"Araz" Supermarkets Chain · Baku, Azerbaijan',
-  body: 'Developed an AI-powered customer service chatbot for a retail chain, combining dataset-based Q&A with GPT fallback, vector embeddings for improved retrieval accuracy, and automated dataset update pipelines.'
+  points: [
+  'Developed an AI-powered customer service chatbot that combined dataset-based question answering with GPT fallback for uncovered queries.',
+  'Applied vector embeddings and semantic search to improve retrieval quality, and automated knowledge-base updates to keep source data current.']
+
 },
 {
-  period: 'May 2023 — May 2024',
+  period: 'May 2023 – May 2024',
   current: false,
   role: 'Backend Developer',
   org: 'Cerner Corporation · Kansas City, Missouri',
-  body: 'Designed and optimized scalable backend systems for healthcare applications. Integrated EHR data and improved performance, reliability, and overall system efficiency in a high-traffic enterprise environment.'
+  points: [
+  'Designed and optimized scalable backend services supporting enterprise healthcare applications and EHR data integrations.',
+  'Improved system performance, reliability, and efficiency in a high-traffic enterprise environment through backend and data-processing enhancements.']
+
 },
 {
-  period: 'Jan 2022 — Apr 2023',
+  period: 'Jan 2022 – Apr 2023',
   current: false,
   role: 'Research Assistant',
   org: 'UMKC School of Science and Engineering · Kansas City, Missouri',
-  body: 'Developed programs to extract data and build knowledge graphs for an ongoing research project sponsored by the National Science Foundation.'
+  points: [
+  'Developed Python pipelines to extract, clean, transform, and prepare research datasets for an AI-focused project sponsored by the National Science Foundation.',
+  'Trained and evaluated machine-learning models using feature engineering, model selection, validation, and iterative experimentation.',
+  'Built knowledge graphs from processed data to represent entities and relationships for downstream research and model-development workflows.']
+
 }];
 
 
@@ -152,7 +156,7 @@ function Nav({ theme, setTheme }) {
       <div className="nav-inner">
         <a href="#top" className="brand">
           <span className="dot"></span>
-          AYKHAN NURI / AI ENG
+          AYKHAN NURI / AI·ML ENG
         </a>
         <div className="nav-links">
           <a href="#about">About</a>
@@ -198,24 +202,26 @@ function Hero() {
             <span className="pulse"></span>
             AVAILABLE FOR WORK
           </span>
-          <span>PORTFOLIO · v2026.04</span>
+          <span>PORTFOLIO · v2026.09</span>
           <span>{time}</span>
         </div>
 
         <h1 className="hero-title">
-          <span className="line">AI</span>
+          <span className="line">AI<span className="dim">/</span>ML</span>
           <span className="line">ENGINEER<span className="dim">.</span></span>
         </h1>
 
         <div className="hero-sub">
-          <p>Aykhan Nuri - Python backend engineer focused on LLMs, RAG pipelines, and agentic systems. I take ideas from architecture sketch to production.
-
+          <p>
+            Aykhan Nuri, AI/ML engineer in Baku. I work the whole machine-learning
+            lifecycle, from data preparation and feature engineering through training and
+            evaluation, and ship the result as Python services that hold up in production.
           </p>
           <div className="actions">
             <a href="#work" className="btn btn-primary">
               VIEW WORK <span className="arrow">→</span>
             </a>
-            <a href="assets/AykhanNuri_Resume.pdf" download className="btn btn-ghost">
+            <a href={RESUME} download className="btn btn-ghost">
               RESUME · PDF
             </a>
           </div>
@@ -239,23 +245,31 @@ function About() {
         <div className="about-grid">
           <div>
             <p>
-              <strong>I build systems that ship.</strong> AI engineer with a backend focus, working primarily in Python and FastAPI. I design APIs, integrate LLMs, and develop RAG-based solutions for automation and customer-facing applications.
+              <strong>AI/ML engineer with a B.S. in Computer Science.</strong> I work across
+              the machine-learning lifecycle: preparing data, engineering features, training
+              and evaluating models, then wiring them into APIs and getting them deployed.
             </p>
             <p>
-              My work covers the full lifecycle: optimizing system performance, handling asynchronous workflows, and building scalable architectures with caching and external API integrations. I take systems from design to deployment and keep them running reliably in production.
+              Day to day that means machine-learning solutions, intelligent automation, RAG
+              applications, and multi-agent systems built in Python with scikit-learn,
+              FastAPI, and current AI frameworks. Most of it runs behind an API, so caching,
+              retries, rate-limit handling, logging, and monitoring get built in rather than
+              bolted on later.
             </p>
-            <p>I focus on writing clean, maintainable code and building things that are practical, stable, and actually useful in real-world environments, not just impressive on a demo day.
-
+            <p>
+              Before this I wrote backend services for enterprise healthcare software at
+              Cerner, and worked on an NSF-sponsored research project at UMKC training models
+              and building knowledge graphs from research datasets.
             </p>
           </div>
           <div className="stat-grid">
             <div className="stat">
               <div className="k">Focus</div>
-              <div className="vsm">LLMs · ML<br />Agentic systems</div>
+              <div className="vsm">Machine learning<br />Applied AI</div>
             </div>
             <div className="stat">
               <div className="k">Stack</div>
-              <div className="vsm">Python · FastAPI<br />PostgreSQL · Redis</div>
+              <div className="vsm">Python · FastAPI<br />scikit-learn · Qdrant</div>
             </div>
             <div className="stat">
               <div className="k">Based</div>
@@ -370,7 +384,9 @@ function Experience() {
               <div className="tl-body">
                 <h3>{e.role}</h3>
                 <div className="org">{e.org}</div>
-                <p>{e.body}</p>
+                <ul className="tl-points">
+                  {e.points.map((pt, j) => <li key={j}>{pt}</li>)}
+                </ul>
               </div>
             </div>
           )}
@@ -394,9 +410,9 @@ function EduLang() {
         <div className="edu-lang">
           <div className="edu">
             <h3>Education</h3>
-            <div className="degree">B.Sc. Computer Science</div>
-            <div className="school">University of Missouri - Kansas City</div>
-            <div className="years">2019 — 2024</div>
+            <div className="degree">B.S. Computer Science</div>
+            <div className="school">University of Missouri, Kansas City</div>
+            <div className="years">2019 – 2024</div>
           </div>
           <div>
             <h3>Languages</h3>
@@ -451,9 +467,9 @@ function Contact() {
             <span className="val">@aykhnnri</span>
             <span className="arr">↗</span>
           </a>
-          <a href="assets/AykhanNuri_Resume.pdf" download className="contact-row">
+          <a href={RESUME} download className="contact-row">
             <span className="label">Resume</span>
-            <span className="val">AykhanNuri_Resume.pdf</span>
+            <span className="val">Aykhan_Nuri_Resume.pdf</span>
             <span className="arr">↓</span>
           </a>
         </div>
@@ -471,41 +487,6 @@ function Footer() {
       <span>© 2026 AYKHAN NURI · ALL SYSTEMS NOMINAL</span>
       <span className="ascii">{'{ built with care · ☕ }'}</span>
     </footer>);
-
-}
-
-/* ============================================================
-   DEMO MODAL
-   ============================================================ */
-function DemoModal({ which, onClose }) {
-  useEffect(() => {
-    const onKey = (e) => {if (e.key === 'Escape') onClose();};
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [onClose]);
-
-  const titleMap = {
-    rag: 'RAG SYSTEM · LIVE DEMO',
-    ranker: 'RESUME RANKER · LIVE DEMO'
-  };
-
-  return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-head">
-          <span className="title">{titleMap[which]}</span>
-          <button className="close" onClick={onClose}>ESC · CLOSE</button>
-        </div>
-        <div className="modal-body">
-          {which === 'rag' && <RagDemo />}
-          {which === 'ranker' && <RankerDemo />}
-        </div>
-      </div>
-    </div>);
 
 }
 
